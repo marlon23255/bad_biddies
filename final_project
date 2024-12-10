@@ -55,7 +55,7 @@ class SchedulePlanner:
                             "end_time": end_time,
                             "type": event["Event Type"]
                         })
- def event_time(self, time_str):
+    def event_time(self, time_str):
         """
         Formats the event time.
 
@@ -68,7 +68,7 @@ class SchedulePlanner:
         if not time_str or time_str.lower() == "none":
             return "due at"
         return time_str
-def free_time(self):
+    def free_time(self):
         """
         Calculates the free time between scheduled events for each day.
         
@@ -112,7 +112,7 @@ def free_time(self):
 
         return free_time
 
-def show_schedule(self):
+    def show_schedule(self):
         """
         Displays the schedule for each day of the week along with the free time,
         both in the terminal and saves it to the output file if specified.
@@ -159,4 +159,25 @@ def show_schedule(self):
                 end_minute = end % 60
                 print(f"    {start_hour:02d}:{start_minute:02d} - {end_hour:02d}:{end_minute:02d}")
             print()
-
+    def read_input_file(file_path):
+    """
+    Reads events from the CSV file and returns a list of event dictionaries.
+    
+    Args:
+    file_path (str): Path to the CSV file containing event data.
+    
+    Returns:
+    list: List of event dictionaries.
+    """
+    events = []
+    with open(file_path, mode='r') as file:
+        csv_reader = csv.DictReader(file)
+        for row in csv_reader:
+            events.append({
+                "Event Name": row["Event Name"],
+                "Weekday": row["Weekday"],
+                "Time": row["Time"],
+                "Repeating Weekly?": row["Repeating Weekly?"],
+                "Event Type": row["Event Type"]
+            })
+    return events
