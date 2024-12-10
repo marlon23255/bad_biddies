@@ -1,0 +1,57 @@
+import calendar
+from collections import defaultdict
+from datetime import datetime
+import argparse
+import csv
+
+class SchedulePlanner:
+    def __init__(self, events, output_file=None):
+        """
+        Initializes the SchedulePlanner class with events and an output file.
+
+        Args:
+        events (list): List of event dictionaries.
+        output_file (str): output file with new schedule
+        """
+        self.events = events
+        self.output_file = output_file
+        self.schedule = {day: [] for day in calendar.day_name}
+
+    def parse_events(self):
+        """
+        Parses events and assigns them to corresponding days of the week.
+        """
+        for event in self.events:
+            days = event["Weekday"].split(", ")
+            
+            for day in days:
+                try:
+                    """ Check if the day falls on a specific date 
+                    """
+                    date_obj = datetime.strptime(day, "%d-%b") 
+                    weekday_name = date_obj.strftime("%A")
+                    self.schedule[weekday_name].append({
+                        "name": event["Event Name"],
+                        "start_time": self.event_time(event["Time"].split('-')[0]),
+                        "end_time": self.event_time(event["Time"].split('-')[1] if '-' in event["Time"] else None),
+                        "type": event["Event Type"]
+                    })
+                except ValueError:
+                    """ If parsing fails because its no a specific date assume it's a weekday name
+                    """
+                    if day in calendar.day_name:
+                        if '-' in event["Time"]:
+                            start_time = self.event_time(event["Time"].split('-')[0])
+                            end_time = self.event_time(event["Time"].split('-')[1])
+                        else:
+                            """ Handle the case where the 'Time' format is incomplete
+                            """
+                            start_time = self.event_time(event["Time"])
+                            end_time = None
+                        
+                        self.schedule[day].append({
+                            "name": event["Event Name"],
+                            "start_time": start_time,
+                            "end_time": end_time,
+                            "type": event["Event Type"]
+                        })
