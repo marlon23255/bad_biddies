@@ -181,3 +181,22 @@ class SchedulePlanner:
                 "Event Type": row["Event Type"]
             })
     return events
+def main():
+    """
+    Main function to parse command-line arguments and execute the program.
+    """
+    parser = argparse.ArgumentParser(description="Schedule Planner")
+    parser.add_argument("input_file", help="Path to the CSV file containing event data")
+    parser.add_argument("--output", help="Path to the output file to save the schedule", default=None)
+    
+    args = parser.parse_args()
+
+    events = read_input_file(args.input_file)
+    
+    planner = SchedulePlanner(events, output_file=args.output)
+    
+    planner.parse_events()
+    planner.show_schedule()
+
+if __name__ == "__main__":
+    main()
