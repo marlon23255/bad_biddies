@@ -159,7 +159,7 @@ class SchedulePlanner:
                 end_minute = end % 60
                 print(f"    {start_hour:02d}:{start_minute:02d} - {end_hour:02d}:{end_minute:02d}")
             print()
-    def read_input_file(file_path):
+def read_input_file(file_path):
     """
     Reads events from the CSV file and returns a list of event dictionaries.
     
