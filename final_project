@@ -111,3 +111,52 @@ def free_time(self):
             free_time[day] = day_free_time
 
         return free_time
+
+def show_schedule(self):
+        """
+        Displays the schedule for each day of the week along with the free time,
+        both in the terminal and saves it to the output file if specified.
+        """
+        free_time = self.free_time()
+
+        if self.output_file:
+            with open(self.output_file, 'w') as file:
+                for day in calendar.day_name:
+                    file.write(f"{day}:\n")
+                    events_for_day = self.schedule[day]
+                    if events_for_day:
+                        file.write("  Scheduled events:\n")
+                        file.writelines(
+                            f"    {event['name']} ({event['start_time']} - {event['end_time']})\n"
+                            for event in events_for_day
+                        )
+                    else:
+                        file.write("  No events scheduled.\n")
+
+                    file.write("  Free time:\n")
+                    file.writelines(
+                        f"    {start // 60}:{start % 60} - {end // 60}:{end % 60}\n"
+                        for start, end in free_time[day]
+                    )
+                    file.write("\n")
+
+        for day in calendar.day_name:
+            print(f"{day}:")
+            events_for_day = self.schedule[day]
+            
+            if events_for_day:
+                print("  Scheduled events:")
+                for event in events_for_day:
+                    print(f"    {event['name']} ({event['start_time']} - {event['end_time']})")
+            else:
+                print("  No events scheduled.")
+
+            print("  Free time:")
+            for start, end in free_time[day]:
+                start_hour = start // 60
+                start_minute = start % 60
+                end_hour = end // 60
+                end_minute = end % 60
+                print(f"    {start_hour:02d}:{start_minute:02d} - {end_hour:02d}:{end_minute:02d}")
+            print()
+
