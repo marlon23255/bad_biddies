@@ -55,3 +55,17 @@ class SchedulePlanner:
                             "end_time": end_time,
                             "type": event["Event Type"]
                         })
+ def event_time(self, time_str):
+        """
+        Formats the event time.
+
+        Args:
+        time_str (str): The time string to format.
+
+        Returns:
+        str: Formatted time string.
+        """
+        if not time_str or time_str.lower() == "none":
+            return "due at"
+        return time_str
+
