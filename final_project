@@ -5,6 +5,7 @@ import argparse
 import csv
 
 class SchedulePlanner:
+    
     def __init__(self, events, output_file=None):
         """
         Initializes the SchedulePlanner class with events and an output file.
