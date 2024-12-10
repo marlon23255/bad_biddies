@@ -1,0 +1,7 @@
+Event Name,Weekday,Time,Repeating Weekly?,Event Type
+INST 326,"Monday, Wednesday, Friday",10:00-10:50,Yes,Class
+INST 327,Thursday,11:00-11:50,Yes,Class
+Rugby Practice,"Tuesday, Wednesday, Thursday",16:00-18:00,Yes,Extracurricular 
+Dentist,9-Dec,12:00-13:00,No,Event
+Quiz 9,1-Dec,23:59,No,Assignment
+327 Final,9-Dec,23:59,No,Assignment
